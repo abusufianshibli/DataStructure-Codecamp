@@ -1,1 +1,953 @@
-# DataStructure-Bootcamp
+**Table of contents**
+
+- [DataStructure-Codecamp](#datastructure-codecamp)
+- [What is Data Structure?](#what-is-data-structure)
+- [Why Data Strucutres?](#why-data-strucutres)
+- [Abstract Data Types vs Data Structures](#abstract-data-types-vs-data-structures)
+  - [Abstract Data Type](#abstract-data-type)
+  - [Examples](#examples)
+- [Introduction to Big-O](#introduction-to-big-o)
+  - [Big-O Notation](#big-o-notation)
+  - [Big-O properties](#big-o-properties)
+  - [Big-O example](#big-o-example)
+- [Static and Dynamic Arrays](#static-and-dynamic-arrays)
+  - [What is a static array?](#what-is-a-static-array)
+  - [When and where is a static array used?](#when-and-where-is-a-static-array-used)
+  - [Complexity](#complexity)
+  - [Dynamic Array](#dynamic-array)
+  - [How can we implement a dynamic array?](#how-can-we-implement-a-dynamic-array)
+  - [Dynamic Array Source Code](#dynamic-array-source-code)
+- [Singly and Doubly Linked List](#singly-and-doubly-linked-list)
+  - [What is a linked list?](#what-is-a-linked-list)
+  - [Where are linked lists used?](#where-are-linked-lists-used)
+  - [Terminology](#terminology)
+  - [Singly vs Doubly Linked Lists](#singly-vs-doubly-linked-lists)
+  - [Singly and Doubly linked list Pros and Cons](#singly-and-doubly-linked-list-pros-and-cons)
+  - [Complexity Analysis](#complexity-analysis)
+  - [Doubly Linked List Source Code](#doubly-linked-list-source-code)
+- [Stack](#stack)
+  - [When and where a Stack is used?](#when-and-where-a-stack-is-used)
+  - [Comlexity Analysis](#comlexity-analysis)
+  - [Stack Source Code](#stack-source-code)
+- [Queues](#queues)
+  - [What is a Queue?](#what-is-a-queue)
+  - [When and where is a Queue used?](#when-and-where-is-a-queue-used)
+  - [Complexity Analysis](#complexity-analysis-1)
+  - [Queue Example](#queue-example)
+  - [Queue Implementation](#queue-implementation)
+  - [Queue Source Code](#queue-source-code)
+- [Priority Queues with an Interlude on Heaps](#priority-queues-with-an-interlude-on-heaps)
+  - [What is a Priority Queue?](#what-is-a-priority-queue)
+  - [What is a Heap?](#what-is-a-heap)
+  - [When and where is a PQ used?](#when-and-where-is-a-pq-used)
+  - [Complexity PQ with binary heap](#complexity-pq-with-binary-heap)
+  - [Ways of Implementing a Priority Queue](#ways-of-implementing-a-priority-queue)
+  - [Priority Queue with Binary Heap](#priority-queue-with-binary-heap)
+
+# DataStructure-Codecamp
+
+This repository is all about **Data Strucutres** from the [YouTube video](https://www.youtube.com/watch?v=RBSGKlAvoiM&feature=youtu.be) of _freecodeCamp.org_, mentored by **William Fiset**.
+
+# What is Data Structure?
+
+A data strucutre is a way of organizing data so that it can be used effective ly. It is a way of organizing data in some fashions that later on it can be accessed, quered and perhaps even updated quickly and easily.
+
+# Why Data Strucutres?
+
+- They are essential ingredients in creating fast and powerful algorithms.
+- They help to manage and organize data.
+- They make code cleaner and easier to understand.
+  _Difference between bad, medium and excellent programmers is that one who understands how and when to use appropriate data structures they are trying to finish_.
+
+# Abstract Data Types vs Data Structures
+
+## Abstract Data Type
+
+An abstract data type (ADT) is an abstraction of a data strucutre which provides only the interface to which a data structure must adhere to. The interface does not give any specific details how something should be implemented or in what programming language.
+
+## Examples
+
+| Abstraction (ADT) | Implementation (DS)                                           |
+| ----------------- | ------------------------------------------------------------- |
+| List              | Dynamic Array, Linked List                                    |
+| Queue             | Linked List based Queue, Array based Queue, Stack based Queue |
+| Map               | Tree Map, Hash Map / Hash Table                               |
+| Vehicle           | Golf Cart, Bicycle, smart cart                                |
+
+# Introduction to Big-O
+
+## Big-O Notation
+
+n - the size of the input complexities ordered in from smalles to largest
+
+| Complexity name   | Notation   |
+| ----------------- | ---------- |
+| Constant Time     | O(1)       |
+| Logarithmic Time  | O(log(n))  |
+| Linear Time       | O(n)       |
+| Linearithmic Time | O(nlog(n)) |
+| Quadric Time      | O(n^2)     |
+| Cubic Time        | O(n^3)     |
+| Exponential Time  | O(b^2)     |
+| Factorial Time    | O(n!)      |
+
+_N.B: In exponential time **b** represents numbers that should be greater than 1 (b>1) like 2, 3, 4 etc_
+
+## Big-O properties
+
+O(n + c) = O(n)
+O(cn) = O(n), c > 0 [*c represents the constent*]
+
+f(n) = 7log(n)^3 + 15n^2 + 2n^3 + 8
+O(f(n)) = O(n^3)
+
+## Big-O example
+
+- Finding all subsets of a set - **O(2^n)**
+- Finding all permutation of a string - **O(n!)**
+- Sorting using merge sort - **O(nlog(n))**
+- Iterating over all the cells in a matrix of size n by m - O(nm)
+
+  [For More](https://github.com/zubayerhimel/coding-Interview/blob/master/BigO/BigO.md)
+
+# Static and Dynamic Arrays
+
+## What is a static array?
+
+A static array is a fixed length container containing n elelments indexable from the range [0, n-1]
+
+Q: **What is meant by being 'indexable'?** <br>
+This means that each slot/ index in the array can be referenced with a number.
+Static array is a contiguous chunk of memories.
+
+## When and where is a static array used?
+
+- Storing and accessing sequential data
+- Temporarily storing objects.
+- Used by IO routines as buffers
+- Lookup tables and inverse lookup tables
+- Can be used to return multiple values from a function
+- Used in dynamic programming to cache answers to sub problems.
+
+## Complexity
+
+| Type of work | Static array | Dynamic array |
+| ------------ | ------------ | ------------- |
+| Access       | O(1)         | O(1)          |
+| Search       | O(n)         | O(n)          |
+| Insertion    | N/A          | O(n)          |
+| Appending    | N/A          | O(1)          |
+| Deletion     | N/A          | O(n)          |
+
+## Dynamic Array
+
+The dynamic array can grow and shrink in size.
+
+```
+A = [34, 4]
+// A.add(-7)
+A = [34, 4, -7]
+//A.add(34)
+A = [34, 4, -7, 34]
+//A.remove(4)
+A = [34, -7, 34]
+```
+
+## How can we implement a dynamic array?
+
+One way is to use a static array!
+
+- Create a static array with an initial capacity
+- Add elements to the underlying static array, keeping track of the number of elements.
+- If adding another element exceeds the capacity, then create a new static array with twice the capacity and copy the original elements into it.
+
+## Dynamic Array Source Code
+
+<details>
+<summary>Code </summary>
+
+```java
+/**
+ * A generic dynamic array implementation
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.dynamicarray;
+
+@SuppressWarnings("unchecked") // ignore all the generic warnings that java has
+public class DynamicArray<T> implements Iterable<T> {
+
+  private T[] arr;
+  private int len = 0; // length user thinks array is
+  private int capacity = 0; // Actual array size
+
+  public DynamicArray() {
+    this(16);
+  }
+
+  public DynamicArray(int capacity) {
+    if (capacity < 0) throw new IllegalArgumentException("Illegal Capacity: " + capacity);
+    this.capacity = capacity;
+    arr = (T[]) new Object[capacity];
+  }
+
+  public int size() {
+    return len;
+  }
+
+  public boolean isEmpty() {
+    return size() == 0;
+  }
+
+  public T get(int index) {
+    return arr[index];
+  }
+
+  public void set(int index, T elem) {
+    arr[index] = elem;
+  }
+
+  public void clear() {
+    for (int i = 0; i < len; i++) arr[i] = null;
+    len = 0;
+  }
+
+  public void add(T elem) {
+
+    // Time to resize!
+    if (len + 1 >= capacity) {
+      if (capacity == 0) capacity = 1;
+      else capacity *= 2; // double the size
+      T[] new_arr = (T[]) new Object[capacity];
+      for (int i = 0; i < len; i++) new_arr[i] = arr[i];
+      arr = new_arr; // arr has extra nulls padded
+    }
+
+    arr[len++] = elem;
+  }
+
+  // Removes an element at the specified index in this array.
+  public T removeAt(int rm_index) {
+    if (rm_index >= len || rm_index < 0) throw new IndexOutOfBoundsException();
+    T data = arr[rm_index];
+    T[] new_arr = (T[]) new Object[len - 1];
+    for (int i = 0, j = 0; i < len; i++, j++)
+      if (i == rm_index) j--; // Skip over rm_index by fixing j temporarily
+      else new_arr[j] = arr[i];
+    arr = new_arr;
+    capacity = --len;
+    return data;
+  }
+
+  public boolean remove(Object obj) {
+    int index = indexOf(obj);
+    if (index == -1) return false;
+    removeAt(index);
+    return true;
+  }
+
+  public int indexOf(Object obj) {
+    for (int i = 0; i < len; i++) {
+      if (obj == null) {
+        if (arr[i] == null) return i;
+      } else {
+        if (obj.equals(arr[i])) return i;
+      }
+    }
+    return -1;
+  }
+
+  public boolean contains(Object obj) {
+    return indexOf(obj) != -1;
+  }
+
+  // Iterator is still fast but not as fast as iterative for loop
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return new java.util.Iterator<T>() {
+      int index = 0;
+
+      @Override
+      public boolean hasNext() {
+        return index < len;
+      }
+
+      @Override
+      public T next() {
+        return arr[index++];
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  @Override
+  public String toString() {
+    if (len == 0) return "[]";
+    else {
+      StringBuilder sb = new StringBuilder(len).append("[");
+      for (int i = 0; i < len - 1; i++) sb.append(arr[i] + ", ");
+      return sb.append(arr[len - 1] + "]").toString();
+    }
+  }
+}
+```
+
+</details>
+
+# Singly and Doubly Linked List
+
+## What is a linked list?
+
+A linked list is a sequential list of nodes that hold data which point to other nodes also containing data.
+
+## Where are linked lists used?
+
+- Used in many List, Queue & Stack implementations.
+- Great for creating circular lists.
+- Can easily model real world objects such as trains.
+- Used in separate chaining, which is present certain Hashtable impementations to deal with hashing collisions.
+- Often used in the implementation of adjacency lists for graphs.
+
+## Terminology
+
+**Head:** The first node in a linked list
+
+**Tail:** The last node in a linked list
+
+**Pointer:** Reference to another node
+
+**Node:** An object containing data and pointer(s)
+
+`3(head) --> 34 --> 12 -->(pointer) --> 90 --> 29(node) --> 44 --> 20(tail)`
+
+## Singly vs Doubly Linked Lists
+
+**Singly linked list** only hold a reference to the next node. In the implementation you always maintain a reference to the head to the linked list and a reference to the tail node for quick additions/removals.
+
+`4-->3-->6-->1-->10-->12`
+
+**Doubly linked list** each node holds a reference to the next and previous node. In the implementation you always maintian a reference to the head and the tail of the doubly linked list to do quick additions/ removal from both ends of your list.
+
+`4<-->3<-->6<-->1<-->10<-->12`
+
+## Singly and Doubly linked list Pros and Cons
+
+| Linked list        | Pros                                    | Cons                                   |
+| ------------------ | --------------------------------------- | -------------------------------------- |
+| Singly linked list | uses less memory, simpler impementation | cannot easily access previous elements |
+| Doubly linked list | can be traversed backwards              | takes 2x memory                        |
+
+## Complexity Analysis
+
+| Task               | Singly linked list | Doubly linked list |
+| ------------------ | ------------------ | ------------------ |
+| Search             | O(n)               | O(n)               |
+| Insertion at head  | O(1)               | O(1)               |
+| Insertion at tail  | O(1)               | O(1)               |
+| Remove from head   | O(1)               | O(1)               |
+| Remove from tail   | O(n)               | O(1)               |
+| Remove from middle | O(n)               | O(n)               |
+
+_N.B. For search operation we get linear complexity for both linked list. Its because for the worst case scenario we have to traverse through all the elements of the list to find the exact element. Remove from tail in singly linked list takes linear time as we don't know what is the new tail of the updated linked list. So we need to traverse whole list to find the new tail. Remove from middle also takes linear time for both linked list because for the worst case scenario we may have to traverse all the elements to get the exact element to remove_
+
+## Doubly Linked List Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+
+/**
+ * A doubly linked list implementation.
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.linkedlist;
+
+public class DoublyLinkedList<T> implements Iterable<T> {
+  private int size = 0;
+  private Node<T> head = null;
+  private Node<T> tail = null;
+
+  // Internal node class to represent data
+  private static class Node<T> {
+    private T data;
+    private Node<T> prev, next;
+
+    public Node(T data, Node<T> prev, Node<T> next) {
+      this.data = data;
+      this.prev = prev;
+      this.next = next;
+    }
+
+    @Override
+    public String toString() {
+      return data.toString();
+    }
+  }
+
+  // Empty this linked list, O(n)
+  public void clear() {
+    Node<T> trav = head;
+    while (trav != null) {
+      Node<T> next = trav.next;
+      trav.prev = trav.next = null;
+      trav.data = null;
+      trav = next;
+    }
+    head = tail = trav = null;
+    size = 0;
+  }
+
+  // Return the size of this linked list
+  public int size() {
+    return size;
+  }
+
+  // Is this linked list empty?
+  public boolean isEmpty() {
+    return size() == 0;
+  }
+
+  // Add an element to the tail of the linked list, O(1)
+  public void add(T elem) {
+    addLast(elem);
+  }
+
+  // Add a node to the tail of the linked list, O(1)
+  public void addLast(T elem) {
+    if (isEmpty()) {
+      head = tail = new Node<T>(elem, null, null);
+    } else {
+      tail.next = new Node<T>(elem, tail, null);
+      tail = tail.next;
+    }
+    size++;
+  }
+
+  // Add an element to the beginning of this linked list, O(1)
+  public void addFirst(T elem) {
+    if (isEmpty()) {
+      head = tail = new Node<T>(elem, null, null);
+    } else {
+      head.prev = new Node<T>(elem, null, head);
+      head = head.prev;
+    }
+    size++;
+  }
+
+  // Check the value of the first node if it exists, O(1)
+  public T peekFirst() {
+    if (isEmpty()) throw new RuntimeException("Empty list");
+    return head.data;
+  }
+
+  // Check the value of the last node if it exists, O(1)
+  public T peekLast() {
+    if (isEmpty()) throw new RuntimeException("Empty list");
+    return tail.data;
+  }
+
+  // Remove the first value at the head of the linked list, O(1)
+  public T removeFirst() {
+    // Can't remove data from an empty list
+    if (isEmpty()) throw new RuntimeException("Empty list");
+
+    // Extract the data at the head and move
+    // the head pointer forwards one node
+    T data = head.data;
+    head = head.next;
+    --size;
+
+    // If the list is empty set the tail to null
+    if (isEmpty()) tail = null;
+
+    // Do a memory cleanup of the previous node
+    else head.prev = null;
+
+    // Return the data that was at the first node we just removed
+    return data;
+  }
+
+  // Remove the last value at the tail of the linked list, O(1)
+  public T removeLast() {
+    // Can't remove data from an empty list
+    if (isEmpty()) throw new RuntimeException("Empty list");
+
+    // Extract the data at the tail and move
+    // the tail pointer backwards one node
+    T data = tail.data;
+    tail = tail.prev;
+    --size;
+
+    // If the list is now empty set the head to null
+    if (isEmpty()) head = null;
+
+    // Do a memory clean of the node that was just removed
+    else tail.next = null;
+
+    // Return the data that was in the last node we just removed
+    return data;
+  }
+
+  // Remove an arbitrary node from the linked list, O(1)
+  private T remove(Node<T> node) {
+    // If the node to remove is somewhere either at the
+    // head or the tail handle those independently
+    if (node.prev == null) return removeFirst();
+    if (node.next == null) return removeLast();
+
+    // Make the pointers of adjacent nodes skip over 'node'
+    node.next.prev = node.prev;
+    node.prev.next = node.next;
+
+    // Temporarily store the data we want to return
+    T data = node.data;
+
+    // Memory cleanup
+    node.data = null;
+    node = node.prev = node.next = null;
+
+    --size;
+
+    // Return the data in the node we just removed
+    return data;
+  }
+
+  // Remove a node at a particular index, O(n)
+  public T removeAt(int index) {
+    // Make sure the index provided is valid
+    if (index < 0 || index >= size) {
+      throw new IllegalArgumentException();
+    }
+
+    int i;
+    Node<T> trav;
+
+    // Search from the front of the list
+    if (index < size / 2) {
+      for (i = 0, trav = head; i != index; i++) {
+        trav = trav.next;
+      }
+      // Search from the back of the list
+    } else
+      for (i = size - 1, trav = tail; i != index; i--) {
+        trav = trav.prev;
+      }
+
+    return remove(trav);
+  }
+
+  // Remove a particular value in the linked list, O(n)
+  public boolean remove(Object obj) {
+    Node<T> trav = head;
+
+    // Support searching for null
+    if (obj == null) {
+      for (trav = head; trav != null; trav = trav.next) {
+        if (trav.data == null) {
+          remove(trav);
+          return true;
+        }
+      }
+      // Search for non null object
+    } else {
+      for (trav = head; trav != null; trav = trav.next) {
+        if (obj.equals(trav.data)) {
+          remove(trav);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Find the index of a particular value in the linked list, O(n)
+  public int indexOf(Object obj) {
+    int index = 0;
+    Node<T> trav = head;
+
+    // Support searching for null
+    if (obj == null) {
+      for (; trav != null; trav = trav.next, index++) {
+        if (trav.data == null) {
+          return index;
+        }
+      }
+      // Search for non null object
+    } else
+      for (; trav != null; trav = trav.next, index++) {
+        if (obj.equals(trav.data)) {
+          return index;
+        }
+      }
+
+    return -1;
+  }
+
+  // Check is a value is contained within the linked list
+  public boolean contains(Object obj) {
+    return indexOf(obj) != -1;
+  }
+
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return new java.util.Iterator<T>() {
+      private Node<T> trav = head;
+
+      @Override
+      public boolean hasNext() {
+        return trav != null;
+      }
+
+      @Override
+      public T next() {
+        T data = trav.data;
+        trav = trav.next;
+        return data;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("[ ");
+    Node<T> trav = head;
+    while (trav != null) {
+      sb.append(trav.data + ", ");
+      trav = trav.next;
+    }
+    sb.append(" ]");
+    return sb.toString();
+  }
+}
+
+```
+
+</details>
+
+# Stack
+
+A stack is a one-ended linear data structure which models a real world stack by having two primary operations, namely **push** and **pop**.
+_Stack refers **LIFO** which means Last In First Out_
+
+## When and where a Stack is used?
+
+- Used by undo mechanism in text editors.
+- Used in compiler syntax checking for matching bracket and braces.
+- Can be used to model a pile of books or plates.
+- Used behind the scenes to support recursion by keeping track of previous function calls.
+- Can be sued to do a Depth First Search (DFS) on a graph.
+
+## Comlexity Analysis
+
+| Task      | Complexity |
+| --------- | ---------- |
+| Pushing   | O(1)       |
+| Popping   | O(1)       |
+| Peeking   | O(1)       |
+| Searching | O(n)       |
+| Size      | O(1)       |
+
+_N.B. Searching takes liner time as the element maybe not be found at the top of the stack, so we need to traverse through the whole stack for the element_
+
+## Stack Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+/**
+ * A linked list implementation of a stack
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.stack;
+
+public class Stack<T> implements Iterable<T> {
+
+  private java.util.LinkedList<T> list = new java.util.LinkedList<T>();
+
+  // Create an empty stack
+  public Stack() {}
+
+  // Create a Stack with an initial element
+  public Stack(T firstElem) {
+    push(firstElem);
+  }
+
+  // Return the number of elements in the stack
+  public int size() {
+    return list.size();
+  }
+
+  // Check if the stack is empty
+  public boolean isEmpty() {
+    return size() == 0;
+  }
+
+  // Push an element on the stack
+  public void push(T elem) {
+    list.addLast(elem);
+  }
+
+  // Pop an element off the stack
+  // Throws an error is the stack is empty
+  public T pop() {
+    if (isEmpty()) throw new java.util.EmptyStackException();
+    return list.removeLast();
+  }
+
+  // Peek the top of the stack without removing an element
+  // Throws an exception if the stack is empty
+  public T peek() {
+    if (isEmpty()) throw new java.util.EmptyStackException();
+    return list.peekLast();
+  }
+
+  // Allow users to iterate through the stack using an iterator
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return list.iterator();
+  }
+}
+
+```
+
+</details>
+
+# Queues
+
+## What is a Queue?
+
+A queue is a linear data structure which models real world queues by having two primary operations, namely enqueue and dequeue.
+_It referes **FIFO** First In First Out_
+
+## When and where is a Queue used?
+
+- Any waiting line models a queue, for example a lineup at a movie theatre.
+- Can be used to efficiently keep track of the x most recently added elements.
+- Web server request management where you want first come first serve.
+- Bradth First Search (BFS) graph traversal.
+
+## Complexity Analysis
+
+| Task                    | Complexity |
+| ----------------------- | ---------- |
+| Enqueue/Adding/Offering | O(1)       |
+| Dequeue/Polling         | O(1)       |
+| Peeking                 | O(1)       |
+| Contains                | O(n)       |
+| Removal                 | O(n)       |
+| Is Empty                | O(1)       |
+
+_N.B. **Peeking** means looking for a value in front of the queue without removing it. It only returns the first value of the queue. If the queue is empty then it returns null. **Contains** means check if the value is in the queue. **Removal** means to remove an element from the queue entirely._
+
+## Queue Example
+
+Example of queue is Breadth First Search. Below is the process of how BFS works with queue -
+
+```
+Let Q be a Queue
+Q.enqueue(starting_node)
+starting_node.visited = true
+
+while Q is not empty Do
+  node = Q.dequeue()
+
+  For neighbour in neighbours(node):
+    if neighbour has not been visited:
+      neighbour.visited = true
+      Q.enqueue(neighbour)
+```
+
+## Queue Implementation
+
+We can do this by using Array or Linked List (Singly linked list/ Doubly linked list)
+
+Enqueue(5)
+Enqueue(1)
+Enqueue(6)
+Enqueue(17)
+Enqueue(8)
+
+**Singly Linked List** Enqueueing
+
+```
+(head) Null (tail)
+
+Enqueue(5)
+
+(head)5(tail) --> null
+
+Enqueue(1)
+
+(head)5 --> 1(tail) --> null
+
+Enqueue(6)
+
+(head)5 --> 1 --> 6(tail) --> null
+
+Enqueue(17)
+
+(head)5 --> 1 --> 6 --> 17(tail) --> null
+
+Enqueue(8)
+
+(head)5 --> 1 --> 6 --> 17 --> 8(tail) --> null
+```
+
+Dequeueing
+
+```
+Dequeue()
+
+null (head)1 --> 6 --> 17 --> 8(tail) --> null
+
+Dequeue()
+
+null (head)6 --> 17 --> 8(tail) --> null
+
+Dequeue()
+
+null (head) 17 --> 8(tail) --> null
+
+Dequeue()
+
+null (head)8(tail) --> null
+
+Dequeue()
+
+(head)(tail) --> null
+
+
+```
+
+## Queue Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+
+/**
+ * A simple queue implementation with a linkedlist
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.queue;
+
+public class Queue<T> implements Iterable<T> {
+
+  private java.util.LinkedList<T> list = new java.util.LinkedList<T>();
+
+  public Queue() {}
+
+  public Queue(T firstElem) {
+    offer(firstElem);
+  }
+
+  // Return the size of the queue
+  public int size() {
+    return list.size();
+  }
+
+  // Returns whether or not the queue is empty
+  public boolean isEmpty() {
+    return size() == 0;
+  }
+
+  // Peek the element at the front of the queue
+  // The method throws an error is the queue is empty
+  public T peek() {
+    if (isEmpty()) throw new RuntimeException("Queue Empty");
+    return list.peekFirst();
+  }
+
+  // Poll an element from the front of the queue
+  // The method throws an error is the queue is empty
+  public T poll() {
+    if (isEmpty()) throw new RuntimeException("Queue Empty");
+    return list.removeFirst();
+  }
+
+  // Add an element to the back of the queue
+  public void offer(T elem) {
+    list.addLast(elem);
+  }
+
+  // Return an iterator to alow the user to traverse
+  // through the elements found inside the queue
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return list.iterator();
+  }
+}
+
+```
+
+</details>
+
+# Priority Queues with an Interlude on Heaps
+
+## What is a Priority Queue?
+
+A priority queue is an Abstract Data Type(ADT) that operates similar to a normal queue except that each element has a certain priority. The priority of the elements in the priority queue determine the order in which elements are removed from the PQ.
+
+_NOTE: Priority queues only supports comparable data, meaning the data inserted into the priority queue must be able to be ordered in some way either from least to greatest or grester to least. This is so that we are able to assign relative priorities to each element._
+
+## What is a Heap?
+
+A heap is a tree based DS that satisfies the heap invariant (also called heap property). If A is a parent node of B then A is ordered with respect to B for all nodes A, B in the heap.
+
+There are two types of heap -
+
+- **Max Heap**
+  - Max heap defines when the root or the parent elemenet has the highest or equal value than the child elements.
+- **Min Heap**
+  - Min heap defines when the root or parent element has the lowest or equal value than the child elements.
+
+_NOTE: **If a heap forms a cycle than it can't be a tree.**_
+
+## When and where is a PQ used?
+
+- Used in certain implementations of Dijkstra's Shortest Path algorithm.
+- Anytime you need the dynamically fetch the 'next best' or 'next worst' element.
+- Used in Huffman coding (which is often used for lossless data compression).
+- Best First Search (BFS) algorithms such as A use PQs to continuously grab the next most porimising node.
+- Used by Minimum Spanning Tree (MST) algorithms.
+
+## Complexity PQ with binary heap
+
+| Task                                        | Complexity |
+| ------------------------------------------- | ---------- |
+| Binary heap construction                    | O(n)       |
+| Polling                                     | O(log(n))  |
+| Peeking                                     | O(1)       |
+| Adding                                      | O(log(n))  |
+| Naive removing                              | O(n)       |
+| Advance remoing with help from a hash table | O(log(n))  |
+| Naive contains                              | O(n)       |
+| Contains check with help of a hash table    | O(1)       |
+
+_N.B. Polling and Adding takes logarithmic time. Its because when polling or adding a new node we need to make sure the new element is placed in the right place and meets the condition of heap variant. To meet the condition of heap variant we may need to replace all the elements so it takes logarithmic time._
+
+## Ways of Implementing a Priority Queue
+
+Piority queues are usually implemented with heaps since this give them the best possible time complexity. The Priority Queue is an Abstract Data Type, hence heaps are not the only way to implement PQs. As an example, we could not give us the best possible time complexity.
+
+## Priority Queue with Binary Heap
+
+There are many types of heaps we could use to implement a priority queue like **Binary Heap**, **Fibonacci Heap**, **Binomial Heap**, **Pairing Heap** etc.
+
+**Binary heap**: A binary heap is a binary tree that supports the heap invariant. In a binary tree every node has exactly two children. A **complete binary tree** is a tree in which at every level, except possibly the last is completely filled and all teh nodes are as far left as possible.
