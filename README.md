@@ -46,6 +46,8 @@
   - [Priority Queue Source Code](#priority-queue-source-code)
 - [Union Find (Disjoint Set)](#union-find-disjoint-set)
   - [What is Union Find?](#what-is-union-find)
+  - [When and where is a Union Find used?](#when-and-where-is-a-union-find-used)
+  - [Complexity of Union Find](#complexity-of-union-find)
 
 # DataStructure-Codecamp
 
@@ -1286,3 +1288,30 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 # Union Find (Disjoint Set)
 
 ## What is Union Find?
+
+**Union Find** is a data structure that keeps track of elements which are split into one or more disjoint sets. It has two primary operations - **_Find_** and **_Union_**
+
+**Find**, given an element find tells what group that element belongs to.
+
+**Union** merge the group together.
+
+## When and where is a Union Find used?
+
+- Kruskal's minimum spanning tree algorithm
+- Grid percolation
+- Network connectivity
+- Least common ancestor in trees
+- Image processing
+
+## Complexity of Union Find
+
+| Task               | Complexity |
+| ------------------ | ---------- |
+| Construction       | O(n)       |
+| Union              | α(n)       |
+| Find               | α(n)       |
+| Get component size | α(n)       |
+| Check if connected | α(n)       |
+| Count components   | O(1)       |
+
+_N.B. α(n) means Amortized constant time_
