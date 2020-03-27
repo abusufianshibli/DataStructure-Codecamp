@@ -27,12 +27,12 @@
   - [Doubly Linked List Source Code](#doubly-linked-list-source-code)
 - [Stack](#stack)
   - [When and where a Stack is used?](#when-and-where-a-stack-is-used)
-  - [Comlexity Analysis](#comlexity-analysis)
+  - [Complexity Analysis](#complexity-analysis-1)
   - [Stack Source Code](#stack-source-code)
 - [Queues](#queues)
   - [What is a Queue?](#what-is-a-queue)
   - [When and where is a Queue used?](#when-and-where-is-a-queue-used)
-  - [Complexity Analysis](#complexity-analysis-1)
+  - [Complexity Analysis](#complexity-analysis-2)
   - [Queue Example](#queue-example)
   - [Queue Implementation](#queue-implementation)
   - [Queue Source Code](#queue-source-code)
@@ -48,6 +48,7 @@
   - [What is Union Find?](#what-is-union-find)
   - [When and where is a Union Find used?](#when-and-where-is-a-union-find-used)
   - [Complexity of Union Find](#complexity-of-union-find)
+  - [Union Find application: Kruskal's Minimum Spanning tree](#union-find-application-kruskals-minimum-spanning-tree)
 
 # DataStructure-Codecamp
 
@@ -654,7 +655,7 @@ _Stack refers **LIFO** which means Last In First Out_
 - Used behind the scenes to support recursion by keeping track of previous function calls.
 - Can be sued to do a Depth First Search (DFS) on a graph.
 
-## Comlexity Analysis
+## Complexity Analysis
 
 | Task      | Complexity |
 | --------- | ---------- |
@@ -1315,3 +1316,9 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 | Count components   | O(1)       |
 
 _N.B. α(n) means Amortized constant time_
+
+## Union Find application: Kruskal's Minimum Spanning tree
+
+Given a graph G = (V, E) we want to find a minimum spanning tree in the graph (it may not be unique). A minimum spanning tree is a subset of the edges which connect all vertices in the graph with the minimal total edge cost. In short, you have to traverse all the edges of the graph or network graph with the minimum cost.
+
+**Graph**
