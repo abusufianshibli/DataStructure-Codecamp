@@ -65,7 +65,24 @@
     - [Removing elements from a BST](#removing-elements-from-a-bst)
       - [Remove Phase](#remove-phase)
   - [Tree Traversals](#tree-traversals)
-    - [Pre Order](#pre-order)
+    - [Pre Order Traverse](#pre-order-traverse)
+    - [In Order Traverse](#in-order-traverse)
+    - [Post Order Traverse](#post-order-traverse)
+    - [Level Order Traverse](#level-order-traverse)
+- [Binary Search Tree Source Code](#binary-search-tree-source-code)
+- [Hash Table](#hash-table)
+  - [What is Hash Table?](#what-is-hash-table)
+  - [What is a Hash function?](#what-is-a-hash-function)
+    - [Properties of Hash Function](#properties-of-hash-function)
+  - [What to do when there is a collision in hash table?](#what-to-do-when-there-is-a-collision-in-hash-table)
+    - [Seprate Chaining](#seprate-chaining)
+    - [Open Addressing](#open-addressing)
+  - [Hash Table Complexity](#hash-table-complexity)
+  - [What is Separate Chaining?](#what-is-separate-chaining)
+    - [How do I maintain O(1) insertion and lookup time complexity once my HT gets really full and I have logn linked list chains?](#how-do-i-maintain-o1-insertion-and-lookup-time-complexity-once-my-ht-gets-really-full-and-i-have-logn-linked-list-chains)
+    - [How do I remove key-value pairs from my HT?](#how-do-i-remove-key-value-pairs-from-my-ht)
+  - [Hash Table Source Code](#hash-table-source-code)
+- [Hash Table Open Addressing](#hash-table-open-addressing)
 - [New keywords/ term that I didn't know before](#new-keywords-term-that-i-didnt-know-before)
   - [Amortized time complexity](#amortized-time-complexity)
   - [Lookup table](#lookup-table)
@@ -1598,9 +1615,767 @@ There are four types of traverse order.
   - Prints after the recursive calls
 - Level order
 
-#### Pre Order
+#### Pre Order Traverse
 
-In pre order traverse we have to traverse left most of the tree first. After reaching at the bottom then we need to step back to immediet root of the left child and goes to right node.
+Print the value of the current node then traverse the left subtree followed by the right subtree. In pre order traverse we have to traverse left most of the tree from the root and print out every element from the root. After reaching at the bottom then we need to step back to immediet root of the left child and goes to right node.
+
+#### In Order Traverse
+
+Traverse the left subtree, then print the value of the node and continue traversing the right subtree. In Inorder traverse we need to traverse left most of the tree first and goes down the last left element of the tree and print the last left element of the tree. Then we step back to immediet root and print the root then goes to right node and print node also. After printing right node we step back to immediet root and print.
+
+#### Post Order Traverse
+
+Traverse the left subtree followed by the right subtree then print the value of the node. In post order traverse we goes down the last left node and print the node. Then step back to root of the current subtree and without printing the root of the subtree print the right node of the subtree then print the root of the subtree.
+
+#### Level Order Traverse
+
+In a level order traversal we want to print the nodes as they appear one layer at a time. In level order traverse we print the main root first then print the next layer means next two child of the root. After that print the next layer means the childs of the two parent node.
+
+## Binary Search Tree Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+
+/**
+ * This file contains an implementation of a Binary Search Tree (BST) Any comparable data is allowed
+ * within this tree (numbers, strings, comparable Objects, etc...). Supported operations include
+ * adding, removing, height, and containment checks. Furthermore, multiple tree traversal Iterators
+ * are provided including: 1) Preorder traversal 2) Inorder traversal 3) Postorder traversal 4)
+ * Levelorder traversal
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.binarysearchtree;
+
+public class BinarySearchTree<T extends Comparable<T>> {
+
+  // Tracks the number of nodes in this BST
+  private int nodeCount = 0;
+
+  // This BST is a rooted tree so we maintain a handle on the root node
+  private Node root = null;
+
+  // Internal node containing node references
+  // and the actual node data
+  private class Node {
+    T data;
+    Node left, right;
+
+    public Node(Node left, Node right, T elem) {
+      this.data = elem;
+      this.left = left;
+      this.right = right;
+    }
+  }
+
+  // Check if this binary tree is empty
+  public boolean isEmpty() {
+    return size() == 0;
+  }
+
+  // Get the number of nodes in this binary tree
+  public int size() {
+    return nodeCount;
+  }
+
+  // Add an element to this binary tree. Returns true
+  // if we successfully perform an insertion
+  public boolean add(T elem) {
+
+    // Check if the value already exists in this
+    // binary tree, if it does ignore adding it
+    if (contains(elem)) {
+      return false;
+
+      // Otherwise add this element to the binary tree
+    } else {
+      root = add(root, elem);
+      nodeCount++;
+      return true;
+    }
+  }
+
+  // Private method to recursively add a value in the binary tree
+  private Node add(Node node, T elem) {
+
+    // Base case: found a leaf node
+    if (node == null) {
+      node = new Node(null, null, elem);
+
+    } else {
+      // Pick a subtree to insert element
+      if (elem.compareTo(node.data) < 0) {
+        node.left = add(node.left, elem);
+      } else {
+        node.right = add(node.right, elem);
+      }
+    }
+
+    return node;
+  }
+
+  // Remove a value from this binary tree if it exists, O(n)
+  public boolean remove(T elem) {
+
+    // Make sure the node we want to remove
+    // actually exists before we remove it
+    if (contains(elem)) {
+      root = remove(root, elem);
+      nodeCount--;
+      return true;
+    }
+    return false;
+  }
+
+  private Node remove(Node node, T elem) {
+
+    if (node == null) return null;
+
+    int cmp = elem.compareTo(node.data);
+
+    // Dig into left subtree, the value we're looking
+    // for is smaller than the current value
+    if (cmp < 0) {
+      node.left = remove(node.left, elem);
+
+      // Dig into right subtree, the value we're looking
+      // for is greater than the current value
+    } else if (cmp > 0) {
+      node.right = remove(node.right, elem);
+
+      // Found the node we wish to remove
+    } else {
+
+      // This is the case with only a right subtree or
+      // no subtree at all. In this situation just
+      // swap the node we wish to remove with its right child.
+      if (node.left == null) {
+
+        Node rightChild = node.right;
+
+        node.data = null;
+        node = null;
+
+        return rightChild;
+
+        // This is the case with only a left subtree or
+        // no subtree at all. In this situation just
+        // swap the node we wish to remove with its left child.
+      } else if (node.right == null) {
+
+        Node leftChild = node.left;
+
+        node.data = null;
+        node = null;
+
+        return leftChild;
+
+        // When removing a node from a binary tree with two links the
+        // successor of the node being removed can either be the largest
+        // value in the left subtree or the smallest value in the right
+        // subtree. In this implementation I have decided to find the
+        // smallest value in the right subtree which can be found by
+        // traversing as far left as possible in the right subtree.
+      } else {
+
+        // Find the leftmost node in the right subtree
+        Node tmp = findMin(node.right);
+
+        // Swap the data
+        node.data = tmp.data;
+
+        // Go into the right subtree and remove the leftmost node we
+        // found and swapped data with. This prevents us from having
+        // two nodes in our tree with the same value.
+        node.right = remove(node.right, tmp.data);
+
+        // If instead we wanted to find the largest node in the left
+        // subtree as opposed to smallest node in the right subtree
+        // here is what we would do:
+        // Node tmp = findMax(node.left);
+        // node.data = tmp.data;
+        // node.left = remove(node.left, tmp.data);
+
+      }
+    }
+
+    return node;
+  }
+
+  // Helper method to find the leftmost node (which has the smallest value)
+  private Node findMin(Node node) {
+    while (node.left != null) node = node.left;
+    return node;
+  }
+
+  // Helper method to find the rightmost node (which has the largest value)
+  private Node findMax(Node node) {
+    while (node.right != null) node = node.right;
+    return node;
+  }
+
+  // returns true is the element exists in the tree
+  public boolean contains(T elem) {
+    return contains(root, elem);
+  }
+
+  // private recursive method to find an element in the tree
+  private boolean contains(Node node, T elem) {
+
+    // Base case: reached bottom, value not found
+    if (node == null) return false;
+
+    int cmp = elem.compareTo(node.data);
+
+    // Dig into the left subtree because the value we're
+    // looking for is smaller than the current value
+    if (cmp < 0) return contains(node.left, elem);
+
+    // Dig into the right subtree because the value we're
+    // looking for is greater than the current value
+    else if (cmp > 0) return contains(node.right, elem);
+
+    // We found the value we were looking for
+    else return true;
+  }
+
+  // Computes the height of the tree, O(n)
+  public int height() {
+    return height(root);
+  }
+
+  // Recursive helper method to compute the height of the tree
+  private int height(Node node) {
+    if (node == null) return 0;
+    return Math.max(height(node.left), height(node.right)) + 1;
+  }
+
+  // This method returns an iterator for a given TreeTraversalOrder.
+  // The ways in which you can traverse the tree are in four different ways:
+  // preorder, inorder, postorder and levelorder.
+  public java.util.Iterator<T> traverse(TreeTraversalOrder order) {
+    switch (order) {
+      case PRE_ORDER:
+        return preOrderTraversal();
+      case IN_ORDER:
+        return inOrderTraversal();
+      case POST_ORDER:
+        return postOrderTraversal();
+      case LEVEL_ORDER:
+        return levelOrderTraversal();
+      default:
+        return null;
+    }
+  }
+
+  // Returns as iterator to traverse the tree in pre order
+  private java.util.Iterator<T> preOrderTraversal() {
+
+    final int expectedNodeCount = nodeCount;
+    final java.util.Stack<Node> stack = new java.util.Stack<>();
+    stack.push(root);
+
+    return new java.util.Iterator<T>() {
+      @Override
+      public boolean hasNext() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        return root != null && !stack.isEmpty();
+      }
+
+      @Override
+      public T next() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        Node node = stack.pop();
+        if (node.right != null) stack.push(node.right);
+        if (node.left != null) stack.push(node.left);
+        return node.data;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  // Returns as iterator to traverse the tree in order
+  private java.util.Iterator<T> inOrderTraversal() {
+
+    final int expectedNodeCount = nodeCount;
+    final java.util.Stack<Node> stack = new java.util.Stack<>();
+    stack.push(root);
+
+    return new java.util.Iterator<T>() {
+      Node trav = root;
+
+      @Override
+      public boolean hasNext() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        return root != null && !stack.isEmpty();
+      }
+
+      @Override
+      public T next() {
+
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+
+        // Dig left
+        while (trav != null && trav.left != null) {
+          stack.push(trav.left);
+          trav = trav.left;
+        }
+
+        Node node = stack.pop();
+
+        // Try moving down right once
+        if (node.right != null) {
+          stack.push(node.right);
+          trav = node.right;
+        }
+
+        return node.data;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  // Returns as iterator to traverse the tree in post order
+  private java.util.Iterator<T> postOrderTraversal() {
+    final int expectedNodeCount = nodeCount;
+    final java.util.Stack<Node> stack1 = new java.util.Stack<>();
+    final java.util.Stack<Node> stack2 = new java.util.Stack<>();
+    stack1.push(root);
+    while (!stack1.isEmpty()) {
+      Node node = stack1.pop();
+      if (node != null) {
+        stack2.push(node);
+        if (node.left != null) stack1.push(node.left);
+        if (node.right != null) stack1.push(node.right);
+      }
+    }
+    return new java.util.Iterator<T>() {
+      @Override
+      public boolean hasNext() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        return root != null && !stack2.isEmpty();
+      }
+
+      @Override
+      public T next() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        return stack2.pop().data;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  // Returns as iterator to traverse the tree in level order
+  private java.util.Iterator<T> levelOrderTraversal() {
+
+    final int expectedNodeCount = nodeCount;
+    final java.util.Queue<Node> queue = new java.util.LinkedList<>();
+    queue.offer(root);
+
+    return new java.util.Iterator<T>() {
+      @Override
+      public boolean hasNext() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        return root != null && !queue.isEmpty();
+      }
+
+      @Override
+      public T next() {
+        if (expectedNodeCount != nodeCount) throw new java.util.ConcurrentModificationException();
+        Node node = queue.poll();
+        if (node.left != null) queue.offer(node.left);
+        if (node.right != null) queue.offer(node.right);
+        return node.data;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+}
+
+```
+
+</details>
+
+## Hash Table
+
+### What is Hash Table?
+
+A hash table is a data structure that provides a mapping from keys to values using a technique called hashing.
+
+| Key (name) | Value (fav color) |
+| ---------- | ----------------- |
+| William    | green             |
+| Micah      | purple            |
+| Catherine  | yellow            |
+| Thomas     | red               |
+| Leah       | purple            |
+
+_N.B. Keys must be unique but values can be repeated. HTs are often used to track item frequencies. For instance, counting the number of times a word appears in a given text._
+
+### What is a Hash function?
+
+A hash function H(x) is a function that maps a key 'x' to a whole number in a fixed range.
+
+#### Properties of Hash Function
+
+If H(x) = H(y) then objects x and y might be equal. If not then x and y are certainly not equal. To speedup object comparisons instead of comparing x and y directly a smarter approach is to first compare their hash values, and if the hash values match then compare x and y. A hash function H(x) must be deterministic. This means that if H(x) = tehn H(x) must always produce y and never another value. A **hash collisions** is when two objects x, y hash to the same value. (i.e. H(x) = H(y))
+
+_N.B. Hash functions for files are more sophisticated than those used for hashtables. Instead for files we use what are called cryptographic hash functions also called checksums._
+
+### What to do when there is a collision in hash table?
+
+When we have collision like two key may have the same value. To solve the problem we can use one of many hash collision resolution techniques to handle this, the two most popular ones are separate chaining and open addressing.
+
+#### Seprate Chaining
+
+Separate chaining deals with hash collisions by maintianing a data structure (usually a linked list) to hold all the different values which hashed to a particular value.
+
+#### Open Addressing
+
+Open addressing deals with hash collisions by finding another place within the hash table for the object to go by offsetting it from the position to which it hashed to.
+
+### Hash Table Complexity
+
+| Operation | Average | Worst |
+| --------- | ------- | ----- |
+| Insertion | O(1)\*  | O(n)  |
+| Removal   | O(1)\*  | O(n)  |
+| Search    | O(1)\*  | O(n)  |
+
+\*The constant time behavior attributed to hash tables is only true if you have a good uniform hash function.
+
+### What is Separate Chaining?
+
+Separate chaining is one of many strategies to deal with hash collisions by maintaining a data structure (usually a linked list) to hold all the different values which hashed to a particular value.
+
+_NOTE: The data structure used to cache the items which hashed to a particular value is not limited to a linked list. Some implementations use one or a mixture of: arrays, binary trees, self balancing trees and etc._
+
+#### How do I maintain O(1) insertion and lookup time complexity once my HT gets really full and I have logn linked list chains?
+
+Once the HT contains a lot of elements you should create a new HT with a larger capacity and rehash all the items inside the old HT and diserse them throughout the new HT at different locations.
+
+#### How do I remove key-value pairs from my HT?
+
+Apply the same procedure as doing a lookup for a key, but this time instead of returning the value associated with the key, remove the node in the linked list data structure.
+
+### Hash Table Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+/**
+ * An implementation of a hash-table using separate chaining with a linked list.
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.hashtable;
+
+import java.util.*;
+
+class Entry<K, V> {
+
+  int hash;
+  K key;
+  V value;
+
+  public Entry(K key, V value) {
+    this.key = key;
+    this.value = value;
+    this.hash = key.hashCode();
+  }
+
+  // We are not overriding the Object equals method
+  // No casting is required with this method.
+  public boolean equals(Entry<K, V> other) {
+    if (hash != other.hash) return false;
+    return key.equals(other.key);
+  }
+
+  @Override
+  public String toString() {
+    return key + " => " + value;
+  }
+}
+
+@SuppressWarnings("unchecked")
+public class HashTableSeparateChaining<K, V> implements Iterable<K> {
+
+  private static final int DEFAULT_CAPACITY = 3;
+  private static final double DEFAULT_LOAD_FACTOR = 0.75;
+
+  private double maxLoadFactor;
+  private int capacity, threshold, size = 0;
+  private LinkedList<Entry<K, V>>[] table;
+
+  public HashTableSeparateChaining() {
+    this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+  }
+
+  public HashTableSeparateChaining(int capacity) {
+    this(capacity, DEFAULT_LOAD_FACTOR);
+  }
+
+  // Designated constructor
+  public HashTableSeparateChaining(int capacity, double maxLoadFactor) {
+    if (capacity < 0) throw new IllegalArgumentException("Illegal capacity");
+    if (maxLoadFactor <= 0 || Double.isNaN(maxLoadFactor) || Double.isInfinite(maxLoadFactor))
+      throw new IllegalArgumentException("Illegal maxLoadFactor");
+    this.maxLoadFactor = maxLoadFactor;
+    this.capacity = Math.max(DEFAULT_CAPACITY, capacity);
+    threshold = (int) (this.capacity * maxLoadFactor);
+    table = new LinkedList[this.capacity];
+  }
+
+  // Returns the number of elements currently inside the hash-table
+  public int size() {
+    return size;
+  }
+
+  // Returns true/false depending on whether the hash-table is empty
+  public boolean isEmpty() {
+    return size == 0;
+  }
+
+  // Converts a hash value to an index. Essentially, this strips the
+  // negative sign and places the hash value in the domain [0, capacity)
+  private int normalizeIndex(int keyHash) {
+    return (keyHash & 0x7FFFFFFF) % capacity;
+  }
+
+  // Clears all the contents of the hash-table
+  public void clear() {
+    Arrays.fill(table, null);
+    size = 0;
+  }
+
+  public boolean containsKey(K key) {
+    return hasKey(key);
+  }
+
+  // Returns true/false depending on whether a key is in the hash table
+  public boolean hasKey(K key) {
+    int bucketIndex = normalizeIndex(key.hashCode());
+    return bucketSeekEntry(bucketIndex, key) != null;
+  }
+
+  // Insert, put and add all place a value in the hash-table
+  public V put(K key, V value) {
+    return insert(key, value);
+  }
+
+  public V add(K key, V value) {
+    return insert(key, value);
+  }
+
+  public V insert(K key, V value) {
+
+    if (key == null) throw new IllegalArgumentException("Null key");
+    Entry<K, V> newEntry = new Entry<>(key, value);
+    int bucketIndex = normalizeIndex(newEntry.hash);
+    return bucketInsertEntry(bucketIndex, newEntry);
+  }
+
+  // Gets a key's values from the map and returns the value.
+  // NOTE: returns null if the value is null AND also returns
+  // null if the key does not exists, so watch out..
+  public V get(K key) {
+
+    if (key == null) return null;
+    int bucketIndex = normalizeIndex(key.hashCode());
+    Entry<K, V> entry = bucketSeekEntry(bucketIndex, key);
+    if (entry != null) return entry.value;
+    return null;
+  }
+
+  // Removes a key from the map and returns the value.
+  // NOTE: returns null if the value is null AND also returns
+  // null if the key does not exists.
+  public V remove(K key) {
+
+    if (key == null) return null;
+    int bucketIndex = normalizeIndex(key.hashCode());
+    return bucketRemoveEntry(bucketIndex, key);
+  }
+
+  // Removes an entry from a given bucket if it exists
+  private V bucketRemoveEntry(int bucketIndex, K key) {
+
+    Entry<K, V> entry = bucketSeekEntry(bucketIndex, key);
+    if (entry != null) {
+      LinkedList<Entry<K, V>> links = table[bucketIndex];
+      links.remove(entry);
+      --size;
+      return entry.value;
+    } else return null;
+  }
+
+  // Inserts an entry in a given bucket only if the entry does not already
+  // exist in the given bucket, but if it does then update the entry value
+  private V bucketInsertEntry(int bucketIndex, Entry<K, V> entry) {
+
+    LinkedList<Entry<K, V>> bucket = table[bucketIndex];
+    if (bucket == null) table[bucketIndex] = bucket = new LinkedList<>();
+
+    Entry<K, V> existentEntry = bucketSeekEntry(bucketIndex, entry.key);
+    if (existentEntry == null) {
+      bucket.add(entry);
+      if (++size > threshold) resizeTable();
+      return null; // Use null to indicate that there was no previous entry
+    } else {
+      V oldVal = existentEntry.value;
+      existentEntry.value = entry.value;
+      return oldVal;
+    }
+  }
+
+  // Finds and returns a particular entry in a given bucket if it exists, returns null otherwise
+  private Entry<K, V> bucketSeekEntry(int bucketIndex, K key) {
+
+    if (key == null) return null;
+    LinkedList<Entry<K, V>> bucket = table[bucketIndex];
+    if (bucket == null) return null;
+    for (Entry<K, V> entry : bucket) if (entry.key.equals(key)) return entry;
+    return null;
+  }
+
+  // Resizes the internal table holding buckets of entries
+  private void resizeTable() {
+
+    capacity *= 2;
+    threshold = (int) (capacity * maxLoadFactor);
+
+    LinkedList<Entry<K, V>>[] newTable = new LinkedList[capacity];
+
+    for (int i = 0; i < table.length; i++) {
+      if (table[i] != null) {
+
+        for (Entry<K, V> entry : table[i]) {
+          int bucketIndex = normalizeIndex(entry.hash);
+          LinkedList<Entry<K, V>> bucket = newTable[bucketIndex];
+          if (bucket == null) newTable[bucketIndex] = bucket = new LinkedList<>();
+          bucket.add(entry);
+        }
+
+        // Avoid memory leak. Help the GC
+        table[i].clear();
+        table[i] = null;
+      }
+    }
+
+    table = newTable;
+  }
+
+  // Returns the list of keys found within the hash table
+  public List<K> keys() {
+
+    List<K> keys = new ArrayList<>(size());
+    for (LinkedList<Entry<K, V>> bucket : table)
+      if (bucket != null) for (Entry<K, V> entry : bucket) keys.add(entry.key);
+    return keys;
+  }
+
+  // Returns the list of values found within the hash table
+  public List<V> values() {
+
+    List<V> values = new ArrayList<>(size());
+    for (LinkedList<Entry<K, V>> bucket : table)
+      if (bucket != null) for (Entry<K, V> entry : bucket) values.add(entry.value);
+    return values;
+  }
+
+  // Return an iterator to iterate over all the keys in this map
+  @Override
+  public java.util.Iterator<K> iterator() {
+    final int elementCount = size();
+    return new java.util.Iterator<K>() {
+
+      int bucketIndex = 0;
+      java.util.Iterator<Entry<K, V>> bucketIter = (table[0] == null) ? null : table[0].iterator();
+
+      @Override
+      public boolean hasNext() {
+
+        // An item was added or removed while iterating
+        if (elementCount != size) throw new java.util.ConcurrentModificationException();
+
+        // No iterator or the current iterator is empty
+        if (bucketIter == null || !bucketIter.hasNext()) {
+
+          // Search next buckets until a valid iterator is found
+          while (++bucketIndex < capacity) {
+            if (table[bucketIndex] != null) {
+
+              // Make sure this iterator actually has elements -_-
+              java.util.Iterator<Entry<K, V>> nextIter = table[bucketIndex].iterator();
+              if (nextIter.hasNext()) {
+                bucketIter = nextIter;
+                break;
+              }
+            }
+          }
+        }
+        return bucketIndex < capacity;
+      }
+
+      @Override
+      public K next() {
+        return bucketIter.next().key;
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+  }
+
+  // Returns a string representation of this hash table
+  @Override
+  public String toString() {
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("{");
+    for (int i = 0; i < capacity; i++) {
+      if (table[i] == null) continue;
+      for (Entry<K, V> entry : table[i]) sb.append(entry + ", ");
+    }
+    sb.append("}");
+    return sb.toString();
+  }
+}
+
+```
+
+</details>
+
+## Hash Table Open Addressing
+
+- The goal of the Hash Table is to construct a mapping from keys to values.
+- Keys must be hashable and we need a hash function that converts keys to whole numbers.
+- We use the hash function defined on our key set to index into an array.
+- Hash functions are not perfect, therefore sometimes two keys k1, k2 (k1 != k2) hash to the save value. When this happens we have a hash collisions (i.e. H(k1) = H(k2))
+- When using open addressing as a collision resolution technique the key-value pairs are stored in the table (array) itself as opposed to a data structure like in separate chaining. This means we need to care a great deal about the size of our hash table and how many elements are currently in the table.
+
+**Load factor = items in table/ size of table**
 
 ## New keywords/ term that I didn't know before
 
