@@ -64,6 +64,8 @@
     - [Adding elements to a BST](#adding-elements-to-a-bst)
     - [Removing elements from a BST](#removing-elements-from-a-bst)
       - [Remove Phase](#remove-phase)
+  - [Tree Traversals](#tree-traversals)
+    - [Pre Order](#pre-order)
 - [New keywords/ term that I didn't know before](#new-keywords-term-that-i-didnt-know-before)
   - [Amortized time complexity](#amortized-time-complexity)
   - [Lookup table](#lookup-table)
@@ -1581,7 +1583,24 @@ Four cases
 - Node to remove has a left subtree but no right subtree
   - After removing the element the next node will be successor of the removed node
 - Node to remove has a both left subtree and right subtree
-  - Node to remove has both left and right subtree. Now question is which side of the next node will be the successor? The answer is both. Successor can be either the largest value in the left subtree
+
+  - Node to remove has both left and right subtree. Now question is which side of the next node will be the successor? The answer is both. Successor can be either the largest value in the left subtree or smallest value in the right subtree.
+
+### Tree Traversals
+
+There are four types of traverse order.
+
+- Pre order
+  - Prints before the recursive calls
+- In order
+  - Prints between the recursive calls
+- Post order
+  - Prints after the recursive calls
+- Level order
+
+#### Pre Order
+
+In pre order traverse we have to traverse left most of the tree first. After reaching at the bottom then we need to step back to immediet root of the left child and goes to right node.
 
 ## New keywords/ term that I didn't know before
 
