@@ -49,29 +49,49 @@
   - [When and where is a Union Find used?](#when-and-where-is-a-union-find-used)
   - [Complexity of Union Find](#complexity-of-union-find)
   - [Union Find application: Kruskal's Minimum Spanning tree](#union-find-application-kruskals-minimum-spanning-tree)
+    - [How does it work?](#how-does-it-work)
+  - [Union Find - Union and Find Operations](#union-find---union-and-find-operations)
+    - [Find Operations](#find-operations)
+    - [Union Operations](#union-operations)
+  - [Union Find Source Code](#union-find-source-code)
+- [Binary Trees and Binary Search Tree (BST)](#binary-trees-and-binary-search-tree-bst)
+  - [What is Tree?](#what-is-tree)
+  - [What is a binary tree?](#what-is-a-binary-tree)
+  - [What is a Binary Search Tree (BST)?](#what-is-a-binary-search-tree-bst)
+  - [When and where are BT used?](#when-and-where-are-bt-used)
+  - [Complexity of BSTs](#complexity-of-bsts)
+  - [Implementation of BST](#implementation-of-bst)
+    - [Adding elements to a BST](#adding-elements-to-a-bst)
+    - [Removing elements from a BST](#removing-elements-from-a-bst)
+      - [Remove Phase](#remove-phase)
+- [New keywords/ term that I didn't know before](#new-keywords-term-that-i-didnt-know-before)
+  - [Amortized time complexity](#amortized-time-complexity)
+  - [Lookup table](#lookup-table)
+  - [Treap](#treap)
+  - [AVL Trees](#avl-trees)
 
-# DataStructure-Codecamp
+## DataStructure-Codecamp
 
 This repository is all about **Data Strucutres** from the [YouTube video](https://www.youtube.com/watch?v=RBSGKlAvoiM&feature=youtu.be) of _freecodeCamp.org_, mentored by **William Fiset**.
 
-# What is Data Structure?
+## What is Data Structure?
 
 A data strucutre is a way of organizing data so that it can be used effective ly. It is a way of organizing data in some fashions that later on it can be accessed, quered and perhaps even updated quickly and easily.
 
-# Why Data Strucutres?
+## Why Data Strucutres?
 
 - They are essential ingredients in creating fast and powerful algorithms.
 - They help to manage and organize data.
 - They make code cleaner and easier to understand.
   _Difference between bad, medium and excellent programmers is that one who understands how and when to use appropriate data structures they are trying to finish_.
 
-# Abstract Data Types vs Data Structures
+## Abstract Data Types vs Data Structures
 
-## Abstract Data Type
+### Abstract Data Type
 
 An abstract data type (ADT) is an abstraction of a data strucutre which provides only the interface to which a data structure must adhere to. The interface does not give any specific details how something should be implemented or in what programming language.
 
-## Examples
+### Examples
 
 | Abstraction (ADT) | Implementation (DS)                                           |
 | ----------------- | ------------------------------------------------------------- |
@@ -80,9 +100,9 @@ An abstract data type (ADT) is an abstraction of a data strucutre which provides
 | Map               | Tree Map, Hash Map / Hash Table                               |
 | Vehicle           | Golf Cart, Bicycle, smart cart                                |
 
-# Introduction to Big-O
+## Introduction to Big-O
 
-## Big-O Notation
+### Big-O Notation
 
 n - the size of the input complexities ordered in from smalles to largest
 
@@ -99,7 +119,7 @@ n - the size of the input complexities ordered in from smalles to largest
 
 _N.B: In exponential time **b** represents numbers that should be greater than 1 (b>1) like 2, 3, 4 etc_
 
-## Big-O properties
+### Big-O properties
 
 O(n + c) = O(n)
 O(cn) = O(n), c > 0 [*c represents the constent*]
@@ -107,7 +127,7 @@ O(cn) = O(n), c > 0 [*c represents the constent*]
 f(n) = 7log(n)^3 + 15n^2 + 2n^3 + 8
 O(f(n)) = O(n^3)
 
-## Big-O example
+### Big-O example
 
 - Finding all subsets of a set - **O(2^n)**
 - Finding all permutation of a string - **O(n!)**
@@ -116,9 +136,9 @@ O(f(n)) = O(n^3)
 
   [For More](https://github.com/zubayerhimel/coding-Interview/blob/master/BigO/BigO.md)
 
-# Static and Dynamic Arrays
+## Static and Dynamic Arrays
 
-## What is a static array?
+### What is a static array?
 
 A static array is a fixed length container containing n elelments indexable from the range [0, n-1]
 
@@ -126,7 +146,7 @@ Q: **What is meant by being 'indexable'?** <br>
 This means that each slot/ index in the array can be referenced with a number.
 Static array is a contiguous chunk of memories.
 
-## When and where is a static array used?
+### When and where is a static array used?
 
 - Storing and accessing sequential data
 - Temporarily storing objects.
@@ -135,7 +155,7 @@ Static array is a contiguous chunk of memories.
 - Can be used to return multiple values from a function
 - Used in dynamic programming to cache answers to sub problems.
 
-## Complexity
+### Complexity
 
 | Type of work | Static array | Dynamic array |
 | ------------ | ------------ | ------------- |
@@ -145,7 +165,7 @@ Static array is a contiguous chunk of memories.
 | Appending    | N/A          | O(1)          |
 | Deletion     | N/A          | O(n)          |
 
-## Dynamic Array
+### Dynamic Array
 
 The dynamic array can grow and shrink in size.
 
@@ -159,7 +179,7 @@ A = [34, 4, -7, 34]
 A = [34, -7, 34]
 ```
 
-## How can we implement a dynamic array?
+### How can we implement a dynamic array?
 
 One way is to use a static array!
 
@@ -167,7 +187,7 @@ One way is to use a static array!
 - Add elements to the underlying static array, keeping track of the number of elements.
 - If adding another element exceeds the capacity, then create a new static array with twice the capacity and copy the original elements into it.
 
-## Dynamic Array Source Code
+### Dynamic Array Source Code
 
 <details>
 <summary>Code </summary>
@@ -304,13 +324,13 @@ public class DynamicArray<T> implements Iterable<T> {
 
 </details>
 
-# Singly and Doubly Linked List
+## Singly and Doubly Linked List
 
-## What is a linked list?
+### What is a linked list?
 
 A linked list is a sequential list of nodes that hold data which point to other nodes also containing data.
 
-## Where are linked lists used?
+### Where are linked lists used?
 
 - Used in many List, Queue & Stack implementations.
 - Great for creating circular lists.
@@ -318,7 +338,7 @@ A linked list is a sequential list of nodes that hold data which point to other 
 - Used in separate chaining, which is present certain Hashtable impementations to deal with hashing collisions.
 - Often used in the implementation of adjacency lists for graphs.
 
-## Terminology
+### Terminology
 
 **Head:** The first node in a linked list
 
@@ -330,7 +350,7 @@ A linked list is a sequential list of nodes that hold data which point to other 
 
 `3(head) --> 34 --> 12 -->(pointer) --> 90 --> 29(node) --> 44 --> 20(tail)`
 
-## Singly vs Doubly Linked Lists
+### Singly vs Doubly Linked Lists
 
 **Singly linked list** only hold a reference to the next node. In the implementation you always maintain a reference to the head to the linked list and a reference to the tail node for quick additions/removals.
 
@@ -340,14 +360,14 @@ A linked list is a sequential list of nodes that hold data which point to other 
 
 `4<-->3<-->6<-->1<-->10<-->12`
 
-## Singly and Doubly linked list Pros and Cons
+### Singly and Doubly linked list Pros and Cons
 
 | Linked list        | Pros                                    | Cons                                   |
 | ------------------ | --------------------------------------- | -------------------------------------- |
 | Singly linked list | uses less memory, simpler impementation | cannot easily access previous elements |
 | Doubly linked list | can be traversed backwards              | takes 2x memory                        |
 
-## Complexity Analysis
+### Complexity Analysis
 
 | Task               | Singly linked list | Doubly linked list |
 | ------------------ | ------------------ | ------------------ |
@@ -360,7 +380,7 @@ A linked list is a sequential list of nodes that hold data which point to other 
 
 _N.B. For search operation we get linear complexity for both linked list. Its because for the worst case scenario we have to traverse through all the elements of the list to find the exact element. Remove from tail in singly linked list takes linear time as we don't know what is the new tail of the updated linked list. So we need to traverse whole list to find the new tail. Remove from middle also takes linear time for both linked list because for the worst case scenario we may have to traverse all the elements to get the exact element to remove_
 
-## Doubly Linked List Source Code
+### Doubly Linked List Source Code
 
 <details>
 <summary>Code</summary>
@@ -642,12 +662,12 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
 </details>
 
-# Stack
+## Stack
 
 A stack is a one-ended linear data structure which models a real world stack by having two primary operations, namely **push** and **pop**.
 _Stack refers **LIFO** which means Last In First Out_
 
-## When and where a Stack is used?
+### When and where a Stack is used?
 
 - Used by undo mechanism in text editors.
 - Used in compiler syntax checking for matching bracket and braces.
@@ -655,7 +675,7 @@ _Stack refers **LIFO** which means Last In First Out_
 - Used behind the scenes to support recursion by keeping track of previous function calls.
 - Can be sued to do a Depth First Search (DFS) on a graph.
 
-## Complexity Analysis
+### Complexity Analysis
 
 | Task      | Complexity |
 | --------- | ---------- |
@@ -667,7 +687,7 @@ _Stack refers **LIFO** which means Last In First Out_
 
 _N.B. Searching takes liner time as the element maybe not be found at the top of the stack, so we need to traverse through the whole stack for the element_
 
-## Stack Source Code
+### Stack Source Code
 
 <details>
 <summary>Code</summary>
@@ -732,21 +752,21 @@ public class Stack<T> implements Iterable<T> {
 
 </details>
 
-# Queues
+## Queues
 
-## What is a Queue?
+### What is a Queue?
 
 A queue is a linear data structure which models real world queues by having two primary operations, namely enqueue and dequeue.
 _It referes **FIFO** First In First Out_
 
-## When and where is a Queue used?
+### When and where is a Queue used?
 
 - Any waiting line models a queue, for example a lineup at a movie theatre.
 - Can be used to efficiently keep track of the x most recently added elements.
 - Web server request management where you want first come first serve.
 - Bradth First Search (BFS) graph traversal.
 
-## Complexity Analysis
+### Complexity Analysis
 
 | Task                    | Complexity |
 | ----------------------- | ---------- |
@@ -759,7 +779,7 @@ _It referes **FIFO** First In First Out_
 
 _N.B. **Peeking** means looking for a value in front of the queue without removing it. It only returns the first value of the queue. If the queue is empty then it returns null. **Contains** means check if the value is in the queue. **Removal** means to remove an element from the queue entirely._
 
-## Queue Example
+### Queue Example
 
 Example of queue is Breadth First Search. Below is the process of how BFS works with queue -
 
@@ -777,7 +797,7 @@ while Q is not empty Do
       Q.enqueue(neighbour)
 ```
 
-## Queue Implementation
+### Queue Implementation
 
 We can do this by using Array or Linked List (Singly linked list/ Doubly linked list)
 
@@ -839,7 +859,7 @@ Dequeue()
 
 ```
 
-## Queue Source Code
+### Queue Source Code
 
 <details>
 <summary>Code</summary>
@@ -904,15 +924,15 @@ public class Queue<T> implements Iterable<T> {
 
 </details>
 
-# Priority Queues with an Interlude on Heaps
+## Priority Queues with an Interlude on Heaps
 
-## What is a Priority Queue?
+### What is a Priority Queue?
 
 A priority queue is an Abstract Data Type(ADT) that operates similar to a normal queue except that each element has a certain priority. The priority of the elements in the priority queue determine the order in which elements are removed from the PQ.
 
 _NOTE: Priority queues only supports comparable data, meaning the data inserted into the priority queue must be able to be ordered in some way either from least to greatest or grester to least. This is so that we are able to assign relative priorities to each element._
 
-## What is a Heap?
+### What is a Heap?
 
 A heap is a tree based DS that satisfies the heap invariant (also called heap property). If A is a parent node of B then A is ordered with respect to B for all nodes A, B in the heap.
 
@@ -925,7 +945,7 @@ There are two types of heap -
 
 _NOTE: **If a heap forms a cycle than it can't be a tree.**_
 
-## When and where is a PQ used?
+### When and where is a PQ used?
 
 - Used in certain implementations of Dijkstra's Shortest Path algorithm.
 - Anytime you need the dynamically fetch the 'next best' or 'next worst' element.
@@ -933,7 +953,7 @@ _NOTE: **If a heap forms a cycle than it can't be a tree.**_
 - Best First Search (BFS) algorithms such as A use PQs to continuously grab the next most porimising node.
 - Used by Minimum Spanning Tree (MST) algorithms.
 
-## Complexity PQ with binary heap
+### Complexity PQ with binary heap
 
 | Task                                        | Complexity |
 | ------------------------------------------- | ---------- |
@@ -948,11 +968,11 @@ _NOTE: **If a heap forms a cycle than it can't be a tree.**_
 
 _N.B. Polling and Adding takes logarithmic time. Its because when polling or adding a new node we need to make sure the new element is placed in the right place and meets the condition of heap variant. To meet the condition of heap variant we may need to replace all the elements so it takes logarithmic time._
 
-## Ways of Implementing a Priority Queue
+### Ways of Implementing a Priority Queue
 
 Piority queues are usually implemented with heaps since this give them the best possible time complexity. The Priority Queue is an Abstract Data Type, hence heaps are not the only way to implement PQs. As an example, we could not give us the best possible time complexity.
 
-## Priority Queue with Binary Heap
+### Priority Queue with Binary Heap
 
 There are many types of heaps we could use to implement a priority queue like **Binary Heap**, **Fibonacci Heap**, **Binomial Heap**, **Pairing Heap** etc.
 
@@ -964,7 +984,7 @@ Polling complexity: _O(log(n))_
 
 Removing: _O(n)_
 
-## Priority Queue Source Code
+### Priority Queue Source Code
 
 <details>
 <summary>Code</summary>
@@ -1286,9 +1306,9 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
 </details>
 
-# Union Find (Disjoint Set)
+## Union Find (Disjoint Set)
 
-## What is Union Find?
+### What is Union Find?
 
 **Union Find** is a data structure that keeps track of elements which are split into one or more disjoint sets. It has two primary operations - **_Find_** and **_Union_**
 
@@ -1296,7 +1316,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
 **Union** merge the group together.
 
-## When and where is a Union Find used?
+### When and where is a Union Find used?
 
 - Kruskal's minimum spanning tree algorithm
 - Grid percolation
@@ -1304,7 +1324,7 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 - Least common ancestor in trees
 - Image processing
 
-## Complexity of Union Find
+### Complexity of Union Find
 
 | Task               | Complexity |
 | ------------------ | ---------- |
@@ -1317,8 +1337,273 @@ public class BinaryHeapQuickRemovals<T extends Comparable<T>> {
 
 _N.B. α(n) means Amortized constant time_
 
-## Union Find application: Kruskal's Minimum Spanning tree
+### Union Find application: Kruskal's Minimum Spanning tree
 
 Given a graph G = (V, E) we want to find a minimum spanning tree in the graph (it may not be unique). A minimum spanning tree is a subset of the edges which connect all vertices in the graph with the minimal total edge cost. In short, you have to traverse all the edges of the graph or network graph with the minimum cost.
 
-**Graph**
+<p align="center">
+  <img width="800" height="400" src= "images/kruskal_graph.PNG">   
+</p>
+<p align="center">
+<em> Graph </em>
+</p>
+
+<p align="center">
+  <img width="800" height="400" src= "images/k.PNG">   
+</p>
+<p align="center">
+<em> Minimum Spanning Tree with weight 14</em>
+</p>
+
+#### How does it work?
+
+- Sort edges by ascending edge weight.
+- Walk through the sorted edges and look at the two nodes the edge belongs to, if the nodes are already unified we don't include this edge, otherwise we include it and unify the nodes.
+- The algorithm terminates when every edge has been processed or all the vertices have been unified.
+
+### Union Find - Union and Find Operations
+
+#### Find Operations
+
+To find which component a particular element belongs to find the root of that component by follwoing the parent nodes until a self loop is reached (a node who's parent is itself).
+
+#### Union Operations
+
+To unify two elements find which are the root nodes of each component and if the root nodes are different make one of the root nodes be the parent of the other.
+
+### Union Find Source Code
+
+<details>
+<summary>Code</summary>
+
+```java
+/**
+ * UnionFind/Disjoint Set data structure implementation. This code was inspired by the union find
+ * implementation found in 'Algorithms Fourth Edition' by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author William Fiset, william.alexandre.fiset@gmail.com
+ */
+package com.williamfiset.datastructures.unionfind;
+
+public class UnionFind {
+
+  // The number of elements in this union find
+  private int size;
+
+  // Used to track the size of each of the component
+  private int[] sz;
+
+  // id[i] points to the parent of i, if id[i] = i then i is a root node
+  private int[] id;
+
+  // Tracks the number of components in the union find
+  private int numComponents;
+
+  public UnionFind(int size) {
+
+    if (size <= 0) throw new IllegalArgumentException("Size <= 0 is not allowed");
+
+    this.size = numComponents = size;
+    sz = new int[size];
+    id = new int[size];
+
+    for (int i = 0; i < size; i++) {
+      id[i] = i; // Link to itself (self root)
+      sz[i] = 1; // Each component is originally of size one
+    }
+  }
+
+  // Find which component/set 'p' belongs to, takes amortized constant time.
+  public int find(int p) {
+
+    // Find the root of the component/set
+    int root = p;
+    while (root != id[root]) root = id[root];
+
+    // Compress the path leading back to the root.
+    // Doing this operation is called "path compression"
+    // and is what gives us amortized time complexity.
+    while (p != root) {
+      int next = id[p];
+      id[p] = root;
+      p = next;
+    }
+
+    return root;
+  }
+
+  // This is an alternative recursive formulation for the find method
+  // public int find(int p) {
+  //   if (p == id[p]) return p;
+  //   return id[p] = find(id[p]);
+  // }
+
+  // Return whether or not the elements 'p' and
+  // 'q' are in the same components/set.
+  public boolean connected(int p, int q) {
+    return find(p) == find(q);
+  }
+
+  // Return the size of the components/set 'p' belongs to
+  public int componentSize(int p) {
+    return sz[find(p)];
+  }
+
+  // Return the number of elements in this UnionFind/Disjoint set
+  public int size() {
+    return size;
+  }
+
+  // Returns the number of remaining components/sets
+  public int components() {
+    return numComponents;
+  }
+
+  // Unify the components/sets containing elements 'p' and 'q'
+  public void unify(int p, int q) {
+
+    int root1 = find(p);
+    int root2 = find(q);
+
+    // These elements are already in the same group!
+    if (root1 == root2) return;
+
+    // Merge smaller component/set into the larger one.
+    if (sz[root1] < sz[root2]) {
+      sz[root2] += sz[root1];
+      id[root1] = root2;
+    } else {
+      sz[root1] += sz[root2];
+      id[root2] = root1;
+    }
+
+    // Since the roots found are different we know that the
+    // number of components/sets has decreased by one
+    numComponents--;
+  }
+}
+
+```
+
+</details>
+
+## Binary Trees and Binary Search Tree (BST)
+
+### What is Tree?
+
+A tree is an undirected graph which satisfies any of the following definintions:
+
+- An acyclic(_no cycle_) connected graph
+- A connected graph with N nodes and N-1 edges.
+- An graph in which any two vertices are connected by exactly one path.
+
+**What is a child?**
+
+**ans**: A child is a node extending from another node. A parent is teh inverse of this.
+
+**What is the parent of the root node?**
+
+**ans**: It has no parent, although it may be useful to assign the parent of the root node to be itself (e.g filesystem tree)
+
+**What is a leaf node?**
+
+**ans**: A leaf node is a node with no children.
+
+**What is a subtree?**
+
+**ans**: A subtree is a tree entirely contained within another tree. They are usually denoted using triangles. Subtrees may consist of a single node.
+
+### What is a binary tree?
+
+A binary tree is a tree for which every node has **at most** two child nodes. It means one parent node can have maximum two child node and minimum empty node. If a parent node has three or more child then that is not a binary tree.
+
+_Parent node having only one child is called degenerate binary tree._
+
+### What is a Binary Search Tree (BST)?
+
+A binary search tree is a binary tree that satisfies the BST invariant: left subtree has smaller elements and right subtree has larger elements.
+
+_N.B. Binary search tree allows dubplicate values. If there is a duplicate values in the tree and we allow duplicated elements then depends on the variant condition we'll say if it is a binary tree or not_
+
+### When and where are BT used?
+
+- Binary Search Trees (BSTs)
+  - Implementation of some map and set ADTs
+  - Red Black Trees
+  - AVL Trees
+  - Splay Trees
+- Used in the implementation of binary heaps
+- Syantax trees (used by compiler and calculators)
+- Treap - a probabilistic DS (uses a randomized BST)
+
+### Complexity of BSTs
+
+| Operation | Average   | Worst |
+| --------- | --------- | ----- |
+| Insert    | O(log(n)) | O(n)  |
+| Delete    | O(log(n)) | O(n)  |
+| Remove    | O(log(n)) | O(n)  |
+| Search    | O(log(n)) | O(n)  |
+
+### Implementation of BST
+
+#### Adding elements to a BST
+
+Binary search tree elements must be comparable so that we can order them inside the tree. When inserting an element we want to compare its value to the value stored in the current node we're considering to decide on one of the following:
+
+- Recurse down left subtree (< case)
+- Recurse down right subtree (> case)
+- Handle finding a duplicate value (= case)
+- Create a new one (found a null leaf)
+
+#### Removing elements from a BST
+
+Removing elements from a Binary Search Tree (BST) can be seen as a two step process.
+
+- Find the element we wish to remove (if it exists)
+- Replace the node we want to remove with its successor (if any) to maintain the BST invariant.
+
+When searching our BST for a node with a particular value one of four things will happen:
+
+- We hit a null node at which point we know the value doesn't exist within our BST.
+- Comparator value equal to 0 (found it!)
+- Comparator value less then 0 (the value, if it exists, is in the left subtree)
+- Comparator value greater than 0 (the value, if it exists, is in the right subtree)
+
+##### Remove Phase
+
+Four cases
+
+- Node to remove is a leaf node
+  - To remove an element from a leaf is not that hard and doesn't have any side effect.
+- Node to remove has a right subtree but no left subtree
+  - After removing the element the next node will be successor of the removed node
+- Node to remove has a left subtree but no right subtree
+  - After removing the element the next node will be successor of the removed node
+- Node to remove has a both left subtree and right subtree
+  - Node to remove has both left and right subtree. Now question is which side of the next node will be the successor? The answer is both. Successor can be either the largest value in the left subtree
+
+## New keywords/ term that I didn't know before
+
+### Amortized time complexity
+
+Amortized time is the way to express the time complexity when an algorithm has the very bad time complexity only once in a while besides the time complexity that most of time. Good example would be ArrayList which is a data structure that contains an array and can be extended. Other definition is _average time taken per operation, if yo do many operations._
+
+- [Reference 1](https://medium.com/@satorusasozaki/amortized-time-in-the-time-complexity-of-an-algorithm-6dd9a5d38045)
+- [Reference 2](https://stackoverflow.com/questions/200384/constant-amortized-time)
+
+### Lookup table
+
+In computer science, a lookup table is an array that replaces runtime computation with a simpler array indexing operation.
+A lookup table, also known as LUT, is an array used in computer porgramming that holds values which would otherwise need to be calculated. The table maybe manually populated when the program is written, or the program may populate the table with values as it calculates them. Lookup table widely used to define data for non linear expression.
+
+- [Reference 1](https://www.computerhope.com/jargon/l/lookup-table.htm)
+- [Reference 2](https://www.quora.com/What-is-a-lookup-table)
+
+### Treap
+
+Treap (plural treaps) A type of randomized binary search tree where nodes are labelled with randomly chosen priority values and which is simultaneously a heap on those priorities.
+
+### AVL Trees
+
+AVL stands for Adelson-Velskii and Landis. In computer science an AVL is a self balancing binary tree. It was the first search data structure to be invented.
