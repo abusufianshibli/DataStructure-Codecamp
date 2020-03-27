@@ -83,6 +83,11 @@
     - [How do I remove key-value pairs from my HT?](#how-do-i-remove-key-value-pairs-from-my-ht)
   - [Hash Table Source Code](#hash-table-source-code)
 - [Hash Table Open Addressing](#hash-table-open-addressing)
+  - [Open Addressing Main Idea](#open-addressing-main-idea)
+  - [General Insertion Method for Open Addressing on a Table of Size N](#general-insertion-method-for-open-addressing-on-a-table-of-size-n)
+- [What is Linear Probing (LP)?](#what-is-linear-probing-lp)
+- [Fenwick Tree (Binary Indexed Tree)](#fenwick-tree-binary-indexed-tree)
+  - [Fenwick Time Complexity](#fenwick-time-complexity)
 - [New keywords/ term that I didn't know before](#new-keywords-term-that-i-didnt-know-before)
   - [Amortized time complexity](#amortized-time-complexity)
   - [Lookup table](#lookup-table)
@@ -2376,6 +2381,53 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
 - When using open addressing as a collision resolution technique the key-value pairs are stored in the table (array) itself as opposed to a data structure like in separate chaining. This means we need to care a great deal about the size of our hash table and how many elements are currently in the table.
 
 **Load factor = items in table/ size of table**
+
+### Open Addressing Main Idea
+When we want to insert a key-value pair (k,v) into the hash table we hash the key and obtain an original position for where theis key-value pair belongs i.e H(k)
+
+If the position our key hashed to is occupied we try another position in the hash table by offsetting the current position subject to a probing sequence P(x). We keep doing this until an unoccupied slot is found.
+
+### General Insertion Method for Open Addressing on a Table of Size N 
+
+    x:= 1
+
+    keyHash := H(k)
+
+    index := keyHash
+
+    while table[index] != null: 
+
+    index = (keyHash + P(k, x)) mod N
+    
+    x = x + 1
+
+    insert (k, v) at table[index] 
+
+Where H(k) is the hash for the key k and P(k, x) is the probing function.
+
+## What is Linear Probing (LP)?
+
+LP is a probing method which probes accoring to a linear formula, specifically:
+
+P(x) = ax + b where a(!=0), b are constants 
+
+_N.B. However not all linear functions are viable because they are unable to produce a cycle of order N. We will need some way to handle this._
+
+## Fenwick Tree (Binary Indexed Tree)
+
+A Fenwick Tree is a data structure that supports sum range queries as well as setting values in a static array and getting the value of the prefix sum up some index efficiently.
+
+### Fenwick Time Complexity 
+
+| Operation      | Complexity |
+| -------------- | :--------: |
+| Construction   |    O(n)    |
+| Point Update   | O(log(n))  |
+| Range Sum      | O(log(n))  |
+| Range Update   | O(log(n))  |
+| Adding Index   |    N/A     |
+| Removing Index |    N/A     |
+
 
 ## New keywords/ term that I didn't know before
 
